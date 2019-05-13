@@ -10,7 +10,7 @@ import (
 type AdminUser struct {
 	Id int
 	Name string `orm:"size(11)"`
-	Password string `orm:"size(12)"`
+	Password string `orm:"size(40)"`
 }
 
 //初始化数据库

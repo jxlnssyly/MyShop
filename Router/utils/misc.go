@@ -3,13 +3,14 @@ package utils
 import (
 	"crypto/md5"
 	"encoding/hex"
-	"pra/IhomeWeb/utils"
+
 	"encoding/json"
 	_ "github.com/astaxie/beego/cache/redis"
 	_ "github.com/garyburd/redigo/redis"
 	"github.com/astaxie/beego/cache"
 	"github.com/weilaihui/fdfs_client"
 	"fmt"
+	"sss/IhomeWeb/utils"
 )
 
 /* 将url加上 http://IP:PROT/  前缀 */
@@ -17,7 +18,6 @@ import (
 
 func AddDomain2Url(url string) (domain_url string) {
 	domain_url = "http://" + G_fastdfs_addr + ":" + G_fastdfs_port + "/" + url
-
 	return domain_url
 }
 
@@ -39,6 +39,8 @@ func GetRedisServer() (adapter cache.Cache, err error) {
 		"dbNum": utils.G_redis_dbnum,
 	}
 
+
+
 	// 将map转化成json
 	redis_conf_json, _ := json.Marshal(redis_conf)
 	// 创建Redis句柄
@@ -49,7 +51,7 @@ func GetRedisServer() (adapter cache.Cache, err error) {
 
 // 上传二进制文件到fdfs
 func UploadByBuffer(filebuffer []byte, fileExt string) (fildid string,err error)  {
-	fd_client, err := fdfs_client.NewFdfsClient("/Users/dabaicai/go/src/sss/IhomeWeb/conf/client.conf")
+	fd_client, err := fdfs_client.NewFdfsClient("/Users/user/go/src/sss/IhomeWeb/conf/client.conf")
 	if err != nil {
 		fmt.Println("创建fdfs句柄失败",err)
 		fildid = ""

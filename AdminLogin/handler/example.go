@@ -6,16 +6,29 @@ import (
 	"github.com/micro/go-log"
 
 	example "MyShop/AdminLogin/proto/example"
-	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/orm"
+	"MyShop/Router/models"
 )
 
 type Example struct{}
 
 // Call is a single request handler called via client.Call or the generated client code
 func (e *Example) AdminLogin(ctx context.Context, req *example.Request, rsp *example.Response) error {
-	//log.Log("Received Example.Call request")
-	beego.Info(req.UserName)
-	beego.Info(req.Password)
+
+	userName := req.UserName
+	password := req.Password
+
+	o := orm.NewOrm()
+	admin := models.AdminUser{Name: userName}
+	o.Read(&admin,"Name")
+	if password != admin.Password {
+		rsp.Msg = "密码错误"
+		rsp.Code = "3"
+	} else {
+		rsp.Msg = "登录成功"
+		rsp.Code = "1"
+	}
+
 	return nil
 }
 

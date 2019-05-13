@@ -36,7 +36,7 @@ func ExampleCall(w http.ResponseWriter, r *http.Request) {
 	// we want to augment the response
 	response := map[string]interface{}{
 		"msg": rsp.Msg,
-		"ref": time.Now().UnixNano(),
+		"code": time.Now().UnixNano(),
 	}
 
 	// encode and write the response as json
@@ -77,7 +77,7 @@ func Login(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	// we want to augment the response
 	response := map[string]interface{}{
 		"msg": rsp.Msg,
-		"ref": time.Now().UnixNano(),
+		"code": rsp.Code,
 	}
 
 	// encode and write the response as json
